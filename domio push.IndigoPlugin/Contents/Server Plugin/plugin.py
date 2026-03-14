@@ -268,6 +268,60 @@ class Plugin(indigo.PluginBase):
 
         self._send_push(title, body, deep_link, play_sound)
 
+    # -- Widget Refresh ------------------------------------------------
+
+    def _send_widget_refresh(self) -> bool:
+        """Send silent push to all registered devices to trigger widget refresh."""
+        if self._subscription_expired:
+            now = datetime.now()
+            if not self._expired_logged_at or (now - self._expired_logged_at).total_seconds() > 3600:
+                self.logger.error("Widget refresh skipped: subscription expired. Open Domio app to renew.")
+                self._expired_logged_at = now
+            return False
+
+        tokens = self._get_app_tokens()
+        if not tokens:
+            self.logger.error("No registered devices -- install Domio app and subscribe")
+            return False
+
+        any_success = False
+        for entry in tokens:
+            app_token = entry.get("token", "")
+            device_name = entry.get("name", "unknown")
+            if not app_token:
+                continue
+
+            response = self._post_json(
+                f"{RELAY_URL}/v2/widget-update", {}, app_token
+            )
+            http_error = response.get("_http_error")
+
+            if response.get("success"):
+                self.logger.debug(f"Widget refresh sent to {device_name}")
+                any_success = True
+            elif http_error == 403:
+                self._subscription_expired = True
+                self._expired_logged_at = datetime.now()
+                self.logger.error("Widget refresh failed: subscription expired.")
+                break
+            elif http_error == 410:
+                self.logger.debug(f"Token expired for {device_name} -- removing")
+                self._remove_token(app_token)
+            elif http_error == 429:
+                self.logger.warning("Widget refresh rate limited -- try again later")
+                break
+            else:
+                error_msg = response.get("error", "Unknown error")
+                self.logger.error(f"Widget refresh to {device_name} failed: {error_msg}")
+
+        if any_success:
+            self.logger.info("Widget refresh sent to all devices")
+        return any_success
+
+    def refreshWidgets(self, action):
+        """Refresh Domio Widgets action callback (called when trigger fires)."""
+        self._send_widget_refresh()
+
     # -- Menu Item Callbacks ------------------------------------------
 
     def sendTestNotification(self):

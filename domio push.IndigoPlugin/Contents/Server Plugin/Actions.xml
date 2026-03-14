@@ -48,4 +48,14 @@
             </Field>
         </ConfigUI>
     </Action>
+    <Action id="refreshWidgets">
+        <Name>Refresh Domio Widgets</Name>
+        <CallbackMethod>refreshWidgets</CallbackMethod>
+        <ConfigUI>
+            <Field type="label" id="widgetHelp"
+                   fontSize="small" fontColor="darkgray">
+                <Label>Sends a silent push to all registered devices, triggering an immediate widget refresh. Use this in triggers after device state changes that should be reflected on home screen widgets.</Label>
+            </Field>
+        </ConfigUI>
+    </Action>
 </Actions>
