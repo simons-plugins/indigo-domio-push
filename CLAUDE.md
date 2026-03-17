@@ -87,7 +87,7 @@ Then enable via **Plugins → Manage Plugins** in Indigo.
 
 ### Plugin ID
 
-`com.simonclark.domio-push` (check Info.plist for exact value)
+`com.simons-plugins.domio`
 
 ### Relay URL
 
