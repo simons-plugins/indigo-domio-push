@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<PluginConfig>
-    <Field id="showDebugInfo" type="checkbox" defaultValue="false">
-        <Label>Enable debug logging:</Label>
-        <Description>Show detailed API calls in Event Log</Description>
-    </Field>
-</PluginConfig>

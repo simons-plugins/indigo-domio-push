@@ -32,12 +32,20 @@
                     <Option value="log">Event Log</Option>
                 </List>
             </Field>
-            <Field type="textfield" id="deepLinkId" defaultValue="">
-                <Label>Deep Link ID:</Label>
+            <Field type="menu" id="deepLinkDeviceId" defaultValue=""
+                   visibleBindingId="deepLinkType" visibleBindingValue="device">
+                <Label>Device:</Label>
+                <List class="self" method="deviceListGenerator" dynamicReload="true" />
             </Field>
-            <Field type="label" id="deepLinkHelp" alignWithControl="true"
-                   fontSize="small" fontColor="darkgray">
-                <Label>Numeric ID for Device, Control Page, or Action Group. Leave blank for None or Event Log.</Label>
+            <Field type="menu" id="deepLinkPageId" defaultValue=""
+                   visibleBindingId="deepLinkType" visibleBindingValue="page">
+                <Label>Control Page:</Label>
+                <List class="self" method="controlPageListGenerator" dynamicReload="true" />
+            </Field>
+            <Field type="menu" id="deepLinkActionId" defaultValue=""
+                   visibleBindingId="deepLinkType" visibleBindingValue="action">
+                <Label>Action Group:</Label>
+                <List class="self" method="actionGroupListGenerator" dynamicReload="true" />
             </Field>
 
             <Field type="separator" id="sep2"/>
@@ -47,6 +55,15 @@
                 <Description>Play notification sound on device</Description>
             </Field>
         </ConfigUI>
+    </Action>
+    <!-- IWS HTTP endpoints (hidden from UI) -->
+    <Action id="status" uiPath="hidden">
+        <Name>History API Status</Name>
+        <CallbackMethod>handle_status</CallbackMethod>
+    </Action>
+    <Action id="history" uiPath="hidden">
+        <Name>Device History</Name>
+        <CallbackMethod>handle_history</CallbackMethod>
     </Action>
     <Action id="refreshWidgets">
         <Name>Refresh Domio Widgets</Name>

@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<PluginConfig>
+    <Field id="pushLabel" type="label" fontColor="darkgray" fontSize="small">
+        <Label>Push notifications require an active Domio app subscription. Device history is available to all users.</Label>
+    </Field>
+
+    <Field id="separator0" type="separator" />
+
+    <Field id="showDebugInfo" type="checkbox" defaultValue="false">
+        <Label>Enable debug logging:</Label>
+        <Description>Show detailed API calls in Event Log</Description>
+    </Field>
+
+    <Field id="separator1" type="separator" />
+
+    <Field id="historyLabel" type="label">
+        <Label>Device History Database</Label>
+    </Field>
+
+    <Field id="dbType" type="menu" defaultValue="sqlite">
+        <Label>Database type:</Label>
+        <List>
+            <Option value="sqlite">SQLite</Option>
+            <Option value="postgresql">PostgreSQL</Option>
+        </List>
+    </Field>
+
+    <Field id="sqlitePath" type="textfield" defaultValue=""
+           visibleBindingId="dbType" visibleBindingValue="sqlite">
+        <Label>SQLite path (blank = auto-detect):</Label>
+    </Field>
+
+    <Field id="pgHost" type="textfield" defaultValue="127.0.0.1"
+           visibleBindingId="dbType" visibleBindingValue="postgresql">
+        <Label>Host:</Label>
+    </Field>
+    <Field id="pgPort" type="textfield" defaultValue="5432"
+           visibleBindingId="dbType" visibleBindingValue="postgresql">
+        <Label>Port:</Label>
+    </Field>
+    <Field id="pgUser" type="textfield" defaultValue="postgres"
+           visibleBindingId="dbType" visibleBindingValue="postgresql">
+        <Label>Username:</Label>
+    </Field>
+    <Field id="pgPassword" type="textfield" defaultValue="" secure="true"
+           visibleBindingId="dbType" visibleBindingValue="postgresql">
+        <Label>Password:</Label>
+    </Field>
+    <Field id="pgDatabase" type="textfield" defaultValue="indigo_history"
+           visibleBindingId="dbType" visibleBindingValue="postgresql">
+        <Label>Database name:</Label>
+    </Field>
+</PluginConfig>
