@@ -508,12 +508,12 @@ class Plugin(indigo.PluginBase):
         return reply
 
     def _parse_page_meta(self, filepath):
-        """Parse domio-page-* meta tags from the first 4KB of an HTML file."""
+        """Parse indigo-page-* meta tags from the first 4KB of an HTML file."""
         meta = {}
         with open(filepath, "r", encoding="utf-8") as f:
             head_content = f.read(4096)
         for match in re.finditer(
-            r'<meta\s+name="domio-page-(\w+)"\s+content="([^"]*)"',
+            r'<meta\s+name="indigo-page-(\w+)"\s+content="([^"]*)"',
             head_content, re.IGNORECASE,
         ):
             meta[match.group(1)] = match.group(2)
