@@ -1,5 +1,38 @@
 # CLAUDE.md — Domio Push Notifications Indigo Plugin
 
+> **Part of the [Indigo workspace](../CLAUDE.md)** — see root for cross-project map, standards, and tooling.
+
+## Project Identity
+
+- **Name**: Domio Push Notifications Plugin
+- **Type**: Indigo plugin
+- **Shortcut**: `push plugin`
+- **GitHub**: https://github.com/simons-plugins/indigo-domio-plugin
+- **Language**: Python 3
+
+## Role in the workspace
+
+First stage of the Domio push stack — sends push and silent-refresh requests from Indigo triggers to the push relay.
+
+```
+indigo-domio-plugin (this) → domio-push-relay → APNs → domio code
+```
+
+## Related projects
+
+- [`../domio-push-relay/`](../domio-push-relay/) — Cloudflare Worker relay to APNs
+- [`../domio code/`](../domio%20code/) — receiving iOS app
+
+## Standards
+
+Inherits workspace standards from [root CLAUDE.md](../CLAUDE.md#common-standards-apply-to-every-project-unless-its-claudemd-overrides). Key points for this project:
+
+- **Version bump per PR**: `Info.plist` `PluginVersion`
+- **Testing**: none
+- **Merge**: GitHub PR only, never `--admin`, never squash, wait for CI green, wait for user go-ahead.
+
+---
+
 Indigo plugin that sends push notifications and widget refresh signals to the Domio iOS app via a Cloudflare Worker relay.
 
 ## System Overview
