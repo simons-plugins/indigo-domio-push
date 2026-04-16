@@ -15,13 +15,13 @@
 First stage of the Domio push stack — sends push and silent-refresh requests from Indigo triggers to the push relay.
 
 ```
-indigo-domio-plugin (this) → domio-push-relay → APNs → domio code
+indigo-domio-plugin (this) → domio-push-relay → APNs → domio-code
 ```
 
 ## Related projects
 
 - [`../domio-push-relay/`](../domio-push-relay/) — Cloudflare Worker relay to APNs
-- [`../domio code/`](../domio%20code/) — receiving iOS app
+- [`../domio-code/`](../domio-code/) — receiving iOS app
 
 ## Standards
 
@@ -30,6 +30,26 @@ Inherits workspace standards from [root CLAUDE.md](../CLAUDE.md#common-standards
 - **Version bump per PR**: `Info.plist` `PluginVersion`
 - **Testing**: none
 - **Merge**: GitHub PR only, never `--admin`, never squash, wait for CI green, wait for user go-ahead.
+
+## Architecture Decision Records
+
+- **Local ADRs:** `docs/adr/` — decisions scoped to this repo.
+- **Local index:** `docs/adr/INDEX.md` — read this first.
+- **Workspace ADRs:** `~/vsCodeProjects/Indigo/docs/adr/` — cross-repo
+  decisions (push contract, HMAC scheme, shared auth). Consult when the
+  task touches how this repo talks to others.
+- **Workspace index:** `~/vsCodeProjects/Indigo/docs/adr/INDEX.md`
+- **Format:** MADR 4.0.0. Template at `docs/adr/0000-template.md`.
+
+### Rules
+- Before introducing a new library, dependency, or architectural pattern,
+  read `docs/adr/INDEX.md` and grep for relevant ADRs.
+- If the user's request contradicts an Accepted ADR, STOP and surface
+  the conflict.
+- If a decision is made that isn't covered by an existing ADR, propose
+  a new ADR in `docs/adr/` using `docs/adr/0000-template.md` before
+  writing code.
+- ADRs are immutable once Accepted: supersede with a new ADR, don't edit.
 
 ---
 
